@@ -27,6 +27,16 @@ const Home = () => {
             <Navbar />
             <Sort />
 			<ProductLists />
+            <div className='author__block'>
+                <span>
+                    created by <a 
+                        href='https://github.com/EgorChindyasov'
+                        className='link-secondary author'
+                        target='_blank'>
+                            Egor Chindyasov
+                        </a>
+                </span>
+            </div>
         </div>
   )
 }
