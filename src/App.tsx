@@ -8,8 +8,6 @@ import Home from './pages/Home'
 import AboutProduct from './pages/AboutProduct'
 import {StatesType} from './redux/reducers'
 
-import './App.css'
-
 const App = () => {
     const productPath = useSelector((state: StatesType) => state.pageProductName)
 
