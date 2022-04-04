@@ -3,8 +3,9 @@ import {
 	useState, 
 	ChangeEvent
 } from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {store} from './../../redux/store'
+import {StatesType} from '../../redux/reducers'
 import {getMoneyFormat} from './../../lib/helpers'
 
 import './index.scss'
@@ -12,6 +13,8 @@ import './index.scss'
 const Navbar: FC = () => {
 	const dispatch = useDispatch()
 	const {targetMortgageOptions, termOptions} = store.getState()
+	const chosenTerm = useSelector((state: StatesType) => state.chosenTerm)
+	const chosenTargetMortage = useSelector((state: StatesType) => state.chosenTargetMortage)
 	
 	const [range, setRange] = useState('')
 	const [initialFee, setinitialFee] = useState('')
@@ -51,12 +54,13 @@ const Navbar: FC = () => {
 						onChange={onChangeTargetMortgage}>
 						<option 
 							value='all' 
-							selected>
+							selected={chosenTargetMortage == 'all'}>
 								Любая
 						</option>
 						{targetMortgageOptions.map((option: string, idx: number) => {
 							return <option 
-										value={option} 
+										value={option}
+										selected={chosenTargetMortage == option} 
 										key={idx}>
 											{option}
 									</option>
@@ -98,15 +102,16 @@ const Navbar: FC = () => {
 						onChange={onChangeTerm}>
 						<option 
 							value='0' 
-							selected>
+							selected={chosenTerm == 0}>
 								Любой
 						</option>
 						{termOptions.sort().map((option: number, idx: number) => {
 							return (
 								<option 
-									value={option} 
+									value={option}
+									selected={chosenTerm == option} 
 									key={idx}>
-									{option}
+										{option}
 									{
 										option == 1 ? ' год' :
 										option < 5 ? ' года' : ' лет' 
