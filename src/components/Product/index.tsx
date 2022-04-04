@@ -16,8 +16,6 @@ const Product: FC<ProductListType> = ({content}) => {
 
 	const onClickButton = () => {
 		dispatch({type: 'SET_PAGE_NAME', payload: `${alias}_${organization.license}`})
-		dispatch({type: 'CHOSE_TERM', payload: 0})
-		dispatch({type: 'CHOSE_TARGET_MORTAGE', payload: 'all'})
 		dispatch({type: 'SET_SORT', payload: ''})
 	}
 
