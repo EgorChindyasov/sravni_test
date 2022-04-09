@@ -73,7 +73,7 @@ const Navbar: FC = () => {
 					<input 
 						type='text' 
 						className='form-control' 
-						value={range} />
+						defaultValue={range} />
 					<input 
 						type='range' 
 						className='form-range' 
@@ -87,7 +87,7 @@ const Navbar: FC = () => {
 					<input 
 						type='text' 
 						className='form-control' 
-						value={initialFee} />
+						defaultValue={initialFee} />
 					<input 
 						type='range' 
 						className='form-range' 
