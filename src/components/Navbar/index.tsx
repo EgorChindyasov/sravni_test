@@ -6,7 +6,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux'
 import {store} from './../../redux/store'
 import {StatesType} from '../../redux/reducers'
-import {getMoneyFormat} from './../../lib/helpers'
+import {getMoneyFormat, getYear} from './../../lib/helpers'
 
 import './index.scss'
 
@@ -111,11 +111,7 @@ const Navbar: FC = () => {
 									value={option}
 									selected={chosenTerm == option} 
 									key={idx}>
-										{option}
-									{
-										option == 1 ? ' год' :
-										option < 5 ? ' года' : ' лет' 
-									}
+										{option} {getYear(option)}
 								</option>
 							)
 						})}
