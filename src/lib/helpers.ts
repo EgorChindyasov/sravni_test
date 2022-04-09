@@ -6,5 +6,5 @@ export const getMoneyFormat = (num: number) => {
 
 export const getYear = (num: number) => {
     return num == 1 ? 'год' :
-    num < 5 ? 'года' : 'лет'
+        num < 5 ? 'года' : 'лет'
 }
