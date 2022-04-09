@@ -8,3 +8,8 @@ export const getYear = (num: number) => {
     return num == 1 ? 'год' :
         num < 5 ? 'года' : 'лет'
 }
+
+export const getMonth = (num: number) => {
+    return num == 1 ? 'месяц' :
+        num < 5 ? 'месяца' : 'месяцев'
+}
