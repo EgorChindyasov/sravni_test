@@ -51,19 +51,20 @@ const Navbar: FC = () => {
 					<p>Цель ипотеки</p>
 					<select 
 						className='form-select select' 
-						onChange={onChangeTargetMortgage}>
-						<option 
-							value='all' 
-							selected={chosenTargetMortage == 'all'}>
-								Любая
+						onChange={onChangeTargetMortgage}
+						value={chosenTargetMortage}
+						>
+						<option value='all'>
+							Любая
 						</option>
 						{targetMortgageOptions.map((option: string, idx: number) => {
-							return <option 
-										value={option}
-										selected={chosenTargetMortage == option} 
-										key={idx}>
-											{option}
-									</option>
+							return (
+								<option 
+									value={option} 
+									key={idx}>
+										{option}
+								</option>
+							)
 						})}
 					</select>
 				</div>
@@ -99,17 +100,16 @@ const Navbar: FC = () => {
 					<p>Срок</p>
 					<select 
 						className='form-select select' 
-						onChange={onChangeTerm}>
-						<option 
-							value='0' 
-							selected={chosenTerm == 0}>
-								Любой
+						onChange={onChangeTerm}
+						value={chosenTerm}
+						>
+						<option value='0'>
+							Любой
 						</option>
 						{termOptions.sort().map((option: number, idx: number) => {
 							return (
 								<option 
-									value={option}
-									selected={chosenTerm == option} 
+									value={option} 
 									key={idx}>
 										{option} {getYear(option)}
 								</option>
