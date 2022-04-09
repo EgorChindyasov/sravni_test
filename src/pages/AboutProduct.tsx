@@ -8,7 +8,7 @@ import Tabs from '../components/Tabs'
 import {StatesType} from '../redux/reducers'
 import {store} from '../redux/store'
 import {InformBlock} from '../data/types'
-import {getMoneyFormat} from './../lib/helpers'
+import {getMoneyFormat, getMonth, getYear} from './../lib/helpers'
 
 import './index.scss'
 
@@ -34,6 +34,15 @@ const AboutProduct = () => {
         dispatch({type: 'SET_PAGE_NAME', payload: ''})
     }
     
+    const getCreditAmount = () => {
+		const creditFrom = rate.creditAmount.from
+		const creditTo = rate.creditAmount.to
+
+		return creditTo 
+		? <span>{getMoneyFormat(creditFrom)} - {getMoneyFormat(creditTo)}</span> 
+		: <span>{getMoneyFormat(creditFrom)}</span>
+	}
+
     const renderConditionsTable = () => {
         return(
             <table className='table table-striped'>
@@ -52,17 +61,7 @@ const AboutProduct = () => {
                     </tr>
                     <tr>
                         <td>Сумма</td>
-                        <td>
-                            {
-                                rate.creditAmount.to 
-                                ? <span>
-                                    {getMoneyFormat(rate.creditAmount.from)} - {getMoneyFormat(rate.creditAmount.to)}
-                                </span> 
-                                : <span>
-                                    {getMoneyFormat(rate.creditAmount.from)}
-                                </span>
-                            }
-                        </td>
+                        <td>{getCreditAmount()}</td>
                     </tr>
                 </tbody>
             </table>
@@ -75,27 +74,13 @@ const AboutProduct = () => {
                 <tbody>
                     <tr>
                         <td>Возраст на момент получения</td>
-                        <td>{customerRequirements.age}
-						    {
-                                customerRequirements.age % 10 == 1 
-                                ? ' год' 
-                                    : [2, 3, 4].includes(customerRequirements.age % 10) 
-                                    ? ' года' 
-                                : ' лет'
-                            }
+                        <td>
+                            {customerRequirements.age} {getYear(customerRequirements.age % 10)}
                         </td>
                     </tr>
                     <tr>
                         <td>Стаж на последнем месте работы</td>
-                        <td>{customerRequirements.lastExperience}
-						    {
-                                customerRequirements.lastExperience % 10 == 1 
-                                ? ' месяц' 
-                                    : [2, 3, 4].includes(customerRequirements.age % 10) 
-                                    ? ' месяца' 
-                                : ' месяцев'
-                            }
-                        </td>
+                        <td>{customerRequirements.lastExperience} {getMonth(customerRequirements.lastExperience % 10)}</td>
                     </tr>
                 </tbody>
             </table>
