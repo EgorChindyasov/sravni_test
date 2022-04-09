@@ -2,7 +2,10 @@ import {FC} from 'react'
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {InformBlock} from '../../data/types'
-import {getMoneyFormat, getYear} from '../../lib/helpers'
+import {
+	getMoneyFormat, 
+	getYear
+} from '../../lib/helpers'
 
 import './index.scss'
 

@@ -5,24 +5,26 @@ import {
 import {useSelector} from 'react-redux'
 import Product from '../Product'
 import Alert from '../Alert/index'
-import {store} from './../../redux/store'
+import {
+	StatesType, 
+	store
+} from './../../redux/store'
 import {InformBlock} from '../../data/types'
-import {StatesType} from '../../redux/reducers'
 
 import './index.scss'
 
 const START_LIST_COUNT = 10
 
 const ProductLists = () => {
-	const {data, isLoaded} = store.getState()
-	const term = useSelector((state: StatesType) => state.chosenTerm)
-	const targetMortgage = useSelector((state: StatesType) => state.chosenTargetMortage)
-	const sortType = useSelector((state: StatesType) => state.sort)
+	const {data, isLoaded} = store.getState().data
+	const term = useSelector((state: StatesType) => state.filter.chosenTerm)
+	const targetMortgage = useSelector((state: StatesType) => state.filter.chosenTargetMortage)
+	const sortType = useSelector((state: StatesType) => state.sort.sort)
 	
 	const [counterBlocks, setCounterBlocks] = useState(START_LIST_COUNT)
 	const [visibleData, setVisibleData] = useState<InformBlock[]>([])
 	const [pressed, setPress] = useState(false)
-
+	
 	useEffect(() => {
 		if (isLoaded) {
 			setVisibleData(data)
@@ -84,7 +86,7 @@ const ProductLists = () => {
 	}
 
 	const showMoreProductLists = () => {
-		setCounterBlocks(store.getState().data.length)
+		setCounterBlocks(data.length)
 		setPress(true)
 	}
 

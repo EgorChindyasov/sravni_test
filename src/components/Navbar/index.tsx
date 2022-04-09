@@ -3,19 +3,27 @@ import {
 	useState, 
 	ChangeEvent
 } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import {store} from './../../redux/store'
-import {StatesType} from '../../redux/reducers'
-import {getMoneyFormat, getYear} from './../../lib/helpers'
+import {
+	useDispatch, 
+	useSelector
+} from 'react-redux'
+import {
+	StatesType, 
+	store
+} from './../../redux/store'
+import {
+	getMoneyFormat, 
+	getYear
+} from './../../lib/helpers'
 
 import './index.scss'
 
 const Navbar: FC = () => {
 	const dispatch = useDispatch()
-	const {targetMortgageOptions, termOptions} = store.getState()
-	const chosenTerm = useSelector((state: StatesType) => state.chosenTerm)
-	const chosenTargetMortage = useSelector((state: StatesType) => state.chosenTargetMortage)
-	
+	const {targetMortgageOptions, termOptions} = store.getState().filter
+	const chosenTerm = useSelector((state: StatesType) => state.filter.chosenTerm)
+	const chosenTargetMortage = useSelector((state: StatesType) => state.filter.chosenTargetMortage)
+
 	const [range, setRange] = useState('')
 	const [initialFee, setinitialFee] = useState('')
 

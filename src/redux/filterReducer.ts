@@ -1,34 +1,26 @@
 import {InformBlock} from '../data/types'
 
-export type StatesType = {
-	data: InformBlock
+export type FilterStatesType = {
 	chosenTerm: number
 	chosenTargetMortage: string
-	pageProductName: string
-	sort: string
-	isLoaded: boolean
 }
 
-export type ActionType = {
+export type FilterActionType = {
 	type: string
 	value?: InformBlock[]
 	payload?: number | string
 }
 
 export const defaultStates = {
-	isLoaded: false,
-	data: [],
 	termOptions: [],
 	targetMortgageOptions: [],
 	chosenTerm: 0,
 	chosenTargetMortage: 'all',
-	sort: '',
-	pageProductName: ''
 }
 
-export const reducer = (state = defaultStates, action: ActionType) => {
+export const filterReducer = (state = defaultStates, action: FilterActionType) => {
   switch (action.type) {
-		case 'SET':
+		case 'SET_OPTIONS':
 
 			const dataTermSet: Set<number> = new Set()
 			const dataNameSet: Set<string> = new Set()
@@ -40,8 +32,6 @@ export const reducer = (state = defaultStates, action: ActionType) => {
 
 			return {
 				...state, 
-				data: action.value,
-				isLoaded: true, 
 				termOptions: Array.from(dataTermSet), 
 				targetMortgageOptions: Array.from(dataNameSet)
 			}
@@ -49,10 +39,6 @@ export const reducer = (state = defaultStates, action: ActionType) => {
 			return {...state, chosenTerm: action.payload}
 		case 'CHOSE_TARGET_MORTAGE':
 			return {...state, chosenTargetMortage: action.payload}
-		case 'SET_PAGE_NAME':
-			return {...state, pageProductName: action.payload}
-		case 'SET_SORT':
-			return {...state, sort: action.payload}
 		default: 
 			return state
   }

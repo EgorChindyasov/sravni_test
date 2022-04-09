@@ -6,10 +6,10 @@ import {
 import {useSelector} from 'react-redux'
 import Home from './pages/Home'
 import AboutProduct from './pages/AboutProduct'
-import {StatesType} from './redux/reducers'
+import {StatesType} from './redux/store'
 
 const App = () => {
-    const productPath = useSelector((state: StatesType) => state.pageProductName)
+    const productPath = useSelector((state: StatesType) => state.route.pageProductName)
 
     return (
         <Routes>

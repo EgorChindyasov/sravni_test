@@ -5,17 +5,23 @@ import {
 } from 'react-redux'
 import {Link} from 'react-router-dom'
 import Tabs from '../components/Tabs'
-import {StatesType} from '../redux/reducers'
-import {store} from '../redux/store'
+import {
+    StatesType, 
+    store
+} from '../redux/store'
 import {InformBlock} from '../data/types'
-import {getMoneyFormat, getMonth, getYear} from './../lib/helpers'
+import {
+    getMoneyFormat, 
+    getMonth, 
+    getYear
+} from './../lib/helpers'
 
 import './index.scss'
 
 const AboutProduct = () => {
-    const {data} = store.getState()
+    const {data} = store.getState().data
     const dispatch = useDispatch()
-    const productPath = useSelector((state: StatesType) => state.pageProductName)
+    const productPath = useSelector((state: StatesType) => state.route.pageProductName)
 
     const helpArr = productPath.split('_')
 
