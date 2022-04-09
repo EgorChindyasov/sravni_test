@@ -2,7 +2,7 @@ import {FC} from 'react'
 import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {InformBlock} from '../../data/types'
-import {getMoneyFormat} from '../../lib/helpers'
+import {getMoneyFormat, getYear} from '../../lib/helpers'
 
 import './index.scss'
 
@@ -19,6 +19,66 @@ const Product: FC<ProductListType> = ({content}) => {
 		dispatch({type: 'SET_SORT', payload: ''})
 	}
 
+	const getInterestRate = () => {
+		return rate.periods[0].rate.from == rate.periods[0].rate.to 
+		? <span className='bold__weight__super'>
+			{rate.periods[0].rate.from}%
+		</span> 
+		: <span className='bold__weight'>
+			от <span className='bold__weight__super'>{rate.periods[0].rate.from}%</span> 
+		</span>
+	}
+
+	const getCreditAmount = () => {
+		const creditFrom = rate.creditAmount.from
+		const creditTo = rate.creditAmount.to
+
+		return creditTo 
+		? <span className='bold__weight'>
+			{getMoneyFormat(creditFrom)} - {getMoneyFormat(creditTo)}
+		</span> 
+		: <span className='bold__weight'>
+			{getMoneyFormat(creditFrom)}
+		</span>
+	}
+
+	const getProductAge = () => {
+		const age = customerRequirements.age
+
+		return <span className='light__weight'>
+			Возраст от {age} {getYear(age % 10)}
+		</span>
+	}
+
+	const getDocuments = () => {
+		const documents = customerRequirements.documents
+
+		return <span className='light__weight'>
+			{documents} 
+			{
+				documents == 1 ? ' документ' : 
+				documents > 5 ? ' документов' : ' документа'
+			}
+		</span>
+	}
+
+	const getProductPeriod = () => {
+		const productPeriod = rate.periods[0].term.to / 12 
+		return <span className='light__weight'>
+			На срок до {productPeriod} {getYear(productPeriod)}
+		</span>
+	}
+
+	const getLicense = () => {
+		const license = organization.license 
+		
+		return license 
+		? <span className='light__weight'>
+			лиц. № {license}
+		</span>
+		: null
+	}
+
 	return(
 		<div className='product'>
 			<div className='product__logo'>
@@ -29,15 +89,7 @@ const Product: FC<ProductListType> = ({content}) => {
 			</div>
 			<div className='product__rate__name'>
 				<div className='rate__from'>
-					{
-						rate.periods[0].rate.from == rate.periods[0].rate.to 
-						? <span className='bold__weight__super'>
-							{rate.periods[0].rate.from}%
-						</span> 
-						: <span className='bold__weight'>
-							от <span className='bold__weight__super'>{rate.periods[0].rate.from}%</span> 
-						</span>
-					}
+					{getInterestRate()}
 				</div>
 				<div className='rate__name'>
 					<span className='light__weight'>
@@ -47,47 +99,23 @@ const Product: FC<ProductListType> = ({content}) => {
 			</div>
 			<div className='product__credit__period'>
 				<div className='product__credit'>
-					{
-						rate.creditAmount.to 
-						? <span className='bold__weight'>
-							{getMoneyFormat(rate.creditAmount.from)} - {getMoneyFormat(rate.creditAmount.to)}
-						</span> 
-						: <span className='bold__weight'>
-							{getMoneyFormat(rate.creditAmount.from)}
-						</span>
-					}
+					{getCreditAmount()}
 				</div>
 				<div className='product__period'>
-					<span className='light__weight'>
-						На срок до {rate.periods[0].term.to / 12}
-						{rate.periods[0].term.to / 12 % 10 == 1 ? ' года' : ' лет'}
-					</span>
+					{getProductPeriod()}
 				</div> 
 			</div>
 			<div className='product__age__documents'>
 				<div className='product__age'>
-					<span className='light__weight'>
-						Возраст от {customerRequirements.age}
-						{customerRequirements.age % 10 == 1 ? ' года' : ' лет'}
-					</span>
+					{getProductAge()}
 				</div>
 				<div className='product__documents'>
-					<span className='light__weight'>
-						{customerRequirements.documents}
-						{customerRequirements.documents == 1 ? ' документ' : 
-						customerRequirements.documents > 5 ? ' документов' : ' документа'}
-					</span>
+					{getDocuments()}
 				</div>
 			</div>
 			<div className='product__license_button'>
 				<div className='product__license'>
-					{	
-						organization.license 
-						? <span className='light__weight'>
-							лиц. № {organization.license}
-						</span>
-						: null
-					}
+					{getLicense()}
 				</div>
 				<div className='product__button'>
 					<Link to={`/about/${alias}_${organization.license}`}>	
