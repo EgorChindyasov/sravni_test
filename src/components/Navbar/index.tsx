@@ -20,7 +20,7 @@ import './index.scss'
 
 const Navbar: FC = () => {
 	const dispatch = useDispatch()
-	const {targetMortgageOptions, termOptions} = store.getState().filter
+	const {targetMortgageOptions, termOptions} = store.getState().data
 	const chosenTerm = useSelector((state: StatesType) => state.filter.chosenTerm)
 	const chosenTargetMortage = useSelector((state: StatesType) => state.filter.chosenTargetMortage)
 
